@@ -29,7 +29,7 @@ public class TestMain {
 		System.out.printf("\n");
 
 		System.out.println("----- MAC Generator -----");
-		String contentMsg = "HH79640001DD201001TT79641111";
+		String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
 		Mac mac = new Mac(contentMsg);
 		
 		System.out.printf("* Input data:\n%s\n\n",	contentMsg);

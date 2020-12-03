@@ -8,6 +8,7 @@ package vn.citad;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.io.UnsupportedEncodingException;
+import vn.citad.type.Utf16Bytes;
 import vn.citad.util.Base64;
 import vn.citad.util.Sha256;
 import vn.citad.util.Trimer;
@@ -19,20 +20,17 @@ public class Mac {
 		this.contentMsg = Trimer.trimAll(contentMsg);
 	}
 	
-	// UTF-8 배열로 생성 (CITAD Spec 2.5 참고)
-	private static byte[] getUtf8Bytes(String target) throws UnsupportedEncodingException {
-		return target.getBytes("UTF-8");
-	}
-	
 	/**
 	 * Get MAC value
 	 * @return MAC result (Message -> UTF-8 Bytes -> SHA256 -> Base64)
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String fetch() {
+	public String fetch() throws UnsupportedEncodingException {
 		Sha256 hash;
 		Base64 encoder;
+		Utf16Bytes encoding = new Utf16Bytes(this.contentMsg);
 		try {
-			hash = new Sha256(this.getUtf8Bytes(this.contentMsg));
+			hash = new Sha256(encoding.getBytes());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
