@@ -13,8 +13,8 @@ import vn.citad.test.TestException;
 
 public class TestUtilBase64 implements TestUnit {
 	public void assertTest() throws TestException {
-		Base64 obj = new Base64("Hello world");
-		if( !("SGVsbG8gd29ybGQ=".equals(obj.toString())) ) {
+		String s = Base64.encoding("Hello world");
+		if( !("SGVsbG8gd29ybGQ=".equals(s)) ) {
 			throw new TestException("[FAIL] TestUtilBase64");
 		}
 		System.out.println("[PASS] TestUtilBase64");

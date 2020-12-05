@@ -1,4 +1,5 @@
 package vn.citad.util;
+
 /**
  * [ VIETNAM CITAD ] Base64
  * 	- String to Base64 String
@@ -10,20 +11,22 @@ package vn.citad.util;
 import java.util.Base64.Encoder;
 
 public class Base64 {
-	private String contentMsg;
-	
 	/**
-	 * Init
+	 * Base64 Encoding
 	 * @param target
 	 */
-	public Base64(String target) {
-		this.contentMsg = target;
-	}
-	
-	public String toString() {
+	public static String encoding(byte[] target) {
 		Encoder encoder = java.util.Base64.getEncoder();
-		byte[] tmp = encoder.encode(this.contentMsg.getBytes());
-		String result = new String(tmp); // byte to string
+		byte[] tmp = encoder.encode(target);
+		String result = new String(tmp);
 		return result;
+	}
+
+	/**
+	 * Base64 Encoding
+	 * @param target
+	 */
+	public static String encoding(String target) {
+		return Base64.encoding(target.getBytes());
 	}
 }

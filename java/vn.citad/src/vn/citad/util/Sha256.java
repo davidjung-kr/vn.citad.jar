@@ -9,9 +9,10 @@ import java.nio.charset.StandardCharsets;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.security.MessageDigest;
-import java.util.Base64;
+//import java.util.Base64;
+import vn.citad.util.Base64;
 import vn.citad.type.Encoding;
-import vn.citad.type.Utf16Bytes;
+import vn.citad.type.UtfBytes;
 
 public class Sha256 {
 	private byte[] target;
@@ -21,7 +22,7 @@ public class Sha256 {
 		this.target = target.getBytes();
 	}
 	
-	public Sha256(Utf16Bytes target) {
+	public Sha256(UtfBytes target) {
 		this.target = target.getBytes();
 		this.charset = Encoding.UTF16;
 	}
@@ -29,6 +30,10 @@ public class Sha256 {
 	public Sha256(byte[] target, Encoding charset) {
 		this.target = target;
 		this.charset = charset;
+	}
+	
+	public Encoding getCharset() {
+		return this.charset;
 	}
 	
 	public String toString() {
@@ -52,26 +57,14 @@ public class Sha256 {
 	}
 	
 	public String toBase64String() {
-		/*
+		byte[] hash = {};
+		String result = "";
 		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(this.target);
-			
-			StringBuffer strBf = new StringBuffer();
-			
-			for(int i=0; i<hash.length; i++) {
-				String hex = Integer.toHexString(0xff & hash[i]);
-				if(hex.length() == 1)
-					strBf.append('0');
-				strBf.append(hex);
-			}
-			String result = strBf.toString();
-			return result;
+			hash = MessageDigest.getInstance("SHA-256").digest(this.target);
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
-        Base64.getEncoder().encode(MessageDigest.getInstance("SHA-256").digest(this.target));*/
-
-		return "";
+		result = new String(Base64.encoding(hash));
+		return result;
 	}
 }

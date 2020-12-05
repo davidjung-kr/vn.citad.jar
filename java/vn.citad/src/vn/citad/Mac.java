@@ -9,33 +9,35 @@ package vn.citad;
  */
 import java.io.UnsupportedEncodingException;
 import vn.citad.type.Encoding;
-import vn.citad.type.Utf16Bytes;
-import vn.citad.util.Base64;
+import vn.citad.type.UtfBytes;
 import vn.citad.util.Sha256;
 import vn.citad.util.Trimer;
 
 public class Mac {
 	private String contentMsg;
+	
+	/**
+	 * Initialize
+	 * @param contentMsg
+	 */
 	public Mac(String contentMsg){
-		// 입력 받은 전문에 여백/공백 모두 제거
+		// 입력 받은 전문에 여백&공백 모두 제거
 		this.contentMsg = Trimer.trimAll(contentMsg);
 	}
 	
 	/**
-	 * Get MAC value
-	 * @return MAC result (Message -> UTF-8 Bytes -> SHA256 -> Base64)
+	 * Get file MAC value.
+	 * @return MAC result (Message -> UTF-16 Bytes -> SHA256 but represent to Base64 string)
 	 * @throws UnsupportedEncodingException 
 	 */
 	public String fetch() throws UnsupportedEncodingException {
 		Sha256 hash;
-		Base64 encoder;
-		Utf16Bytes encoding = new Utf16Bytes(this.contentMsg);
+		UtfBytes u16bytes = new UtfBytes(this.contentMsg, Encoding.UTF16);
 		try {
-			hash = new Sha256(encoding.getBytes(), Encoding.UTF16);
+			hash = new Sha256(u16bytes);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		encoder = new Base64(hash.toString());
-		return encoder.toString();
+		return hash.toBase64String();
 	}
 }

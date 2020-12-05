@@ -19,10 +19,10 @@ public class TestUtilSha256 implements TestUnit {
 			throw new TestException("[FAIL] TestUtilSha256 - toString: " + obj.toString());
 		}
 		
-		/*
+		
 		if( !("ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw=".equals(obj.toBase64String())) ) {
 			throw new TestException("[FAIL] TestUtilSha256 - toBase64String: " + obj.toBase64String());
-		}*/
+		}
 		
 		System.out.println("[PASS] TestUtilSha256");
 	}

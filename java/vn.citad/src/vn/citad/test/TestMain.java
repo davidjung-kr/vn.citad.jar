@@ -8,13 +8,9 @@ package vn.citad.test;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import vn.citad.Mac;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
-import vn.citad.*;
+import vn.citad.type.UtfBytes;
+import vn.citad.type.Encoding;
+import vn.citad.util.Sha256;
 
 public class TestMain {
 	public static void main(String[] args) throws Exception {
@@ -34,18 +30,14 @@ public class TestMain {
 		System.out.printf("\n");
 
 		System.out.println("----- MAC Generator -----");
-		//String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
-		String contentMsg = "Hello world";
-		Mac mac = new Mac(contentMsg);
-
-		System.out.printf("* Input data:\n%s\n\n",	contentMsg);
-		System.out.printf("* MAC result:\n%s",		mac.fetch());
-
-		System.out.printf("\n\n* Test Convertingv:\n%s\n\n",	TestMain.encode(contentMsg));
-	}
-	
-	public static String encode(final String clearText) throws NoSuchAlgorithmException {
-	       return new String(
-	               Base64.getEncoder().encode(MessageDigest.getInstance("SHA-256").digest(clearText.getBytes(StandardCharsets.UTF_8))));
+		
+		String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
+		UtfBytes u8bytes = new UtfBytes(contentMsg, Encoding.UTF8);
+		UtfBytes u16bytes = new UtfBytes(contentMsg, Encoding.UTF16);
+		
+		System.out.printf("* Input data:\n%s\n\n",					contentMsg);
+		System.out.printf("* SHA-256 Result(from UTF-8):\n%s\n\n",	new Sha256(u8bytes).toString());
+		System.out.printf("* SHA-256 Result(from UTF-16):\n%s\n\n",	new Sha256(u16bytes).toString());
+		System.out.printf("* MAC result:\n%s",						new Mac(contentMsg).fetch());
 	}
 }
