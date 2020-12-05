@@ -8,9 +8,11 @@ package vn.citad.type;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.io.UnsupportedEncodingException;
+import vn.citad.type.Encoding;
 
 public class Utf16Bytes {
 	private byte[] bytes;
+	private Encoding charset = Encoding.UTF16;
 	
 	public Utf16Bytes(String target) throws UnsupportedEncodingException {
 		this.bytes = target.getBytes("UTF-16");
@@ -22,5 +24,9 @@ public class Utf16Bytes {
 	
 	public byte[] getBytes() {
 		return this.bytes;
+	}
+	
+	public Encoding getCharset() {
+		return this.charset;
 	}
 }

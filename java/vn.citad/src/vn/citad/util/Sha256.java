@@ -1,4 +1,5 @@
 package vn.citad.util;
+import java.nio.charset.StandardCharsets;
 /**
  * [ VIETNAM CITAD ] Sha256
  * 	- String to Sha256 String
@@ -8,16 +9,26 @@ package vn.citad.util;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.security.MessageDigest;
+import java.util.Base64;
+import vn.citad.type.Encoding;
+import vn.citad.type.Utf16Bytes;
 
 public class Sha256 {
 	private byte[] target;
+	private Encoding charset = Encoding.UTF8;
 	
 	public Sha256(String target) {
 		this.target = target.getBytes();
 	}
 	
-	public Sha256(byte[] target) {
+	public Sha256(Utf16Bytes target) {
+		this.target = target.getBytes();
+		this.charset = Encoding.UTF16;
+	}
+	
+	public Sha256(byte[] target, Encoding charset) {
 		this.target = target;
+		this.charset = charset;
 	}
 	
 	public String toString() {
@@ -38,5 +49,29 @@ public class Sha256 {
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public String toBase64String() {
+		/*
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(this.target);
+			
+			StringBuffer strBf = new StringBuffer();
+			
+			for(int i=0; i<hash.length; i++) {
+				String hex = Integer.toHexString(0xff & hash[i]);
+				if(hex.length() == 1)
+					strBf.append('0');
+				strBf.append(hex);
+			}
+			String result = strBf.toString();
+			return result;
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+        Base64.getEncoder().encode(MessageDigest.getInstance("SHA-256").digest(this.target));*/
+
+		return "";
 	}
 }

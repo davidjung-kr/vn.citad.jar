@@ -9,6 +9,11 @@ package vn.citad.test;
  */
 import vn.citad.Mac;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 import vn.citad.*;
 
 public class TestMain {
@@ -29,10 +34,18 @@ public class TestMain {
 		System.out.printf("\n");
 
 		System.out.println("----- MAC Generator -----");
-		String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
+		//String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
+		String contentMsg = "Hello world";
 		Mac mac = new Mac(contentMsg);
-		
+
 		System.out.printf("* Input data:\n%s\n\n",	contentMsg);
 		System.out.printf("* MAC result:\n%s",		mac.fetch());
+
+		System.out.printf("\n\n* Test Convertingv:\n%s\n\n",	TestMain.encode(contentMsg));
+	}
+	
+	public static String encode(final String clearText) throws NoSuchAlgorithmException {
+	       return new String(
+	               Base64.getEncoder().encode(MessageDigest.getInstance("SHA-256").digest(clearText.getBytes(StandardCharsets.UTF_8))));
 	}
 }

@@ -8,6 +8,7 @@ package vn.citad;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.io.UnsupportedEncodingException;
+import vn.citad.type.Encoding;
 import vn.citad.type.Utf16Bytes;
 import vn.citad.util.Base64;
 import vn.citad.util.Sha256;
@@ -30,7 +31,7 @@ public class Mac {
 		Base64 encoder;
 		Utf16Bytes encoding = new Utf16Bytes(this.contentMsg);
 		try {
-			hash = new Sha256(encoding.getBytes());
+			hash = new Sha256(encoding.getBytes(), Encoding.UTF16);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -14,10 +14,16 @@ import vn.citad.test.TestException;
 public class TestUtilSha256 implements TestUnit {
 	public void assertTest() throws TestException {
 		String target = "Hello world";
-		Sha256 obj = new Sha256(target.getBytes());
+		Sha256 obj = new Sha256(target);
 		if( !("64ec88ca00b268e5ba1a35678a1b5316d212f4f366b2477232534a8aeca37f3c".equals(obj.toString())) ) {
-			throw new TestException("[FAIL] TestUtilSha256: " + obj.toString());
+			throw new TestException("[FAIL] TestUtilSha256 - toString: " + obj.toString());
 		}
+		
+		/*
+		if( !("ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw=".equals(obj.toBase64String())) ) {
+			throw new TestException("[FAIL] TestUtilSha256 - toBase64String: " + obj.toBase64String());
+		}*/
+		
 		System.out.println("[PASS] TestUtilSha256");
 	}
 }
