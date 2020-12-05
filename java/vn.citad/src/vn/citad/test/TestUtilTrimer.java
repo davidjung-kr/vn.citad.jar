@@ -8,8 +8,6 @@ package vn.citad.test;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import vn.citad.util.Trimer;
-import vn.citad.test.TestUnit;
-import vn.citad.test.TestException;
 
 public class TestUtilTrimer implements TestUnit {
 	public void assertTest() throws TestException {

@@ -1,5 +1,4 @@
 package vn.citad.util;
-import java.nio.charset.StandardCharsets;
 /**
  * [ VIETNAM CITAD ] Sha256
  * 	- String to Sha256 String
@@ -9,8 +8,6 @@ import java.nio.charset.StandardCharsets;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.security.MessageDigest;
-//import java.util.Base64;
-import vn.citad.util.Base64;
 import vn.citad.type.Encoding;
 import vn.citad.type.UtfBytes;
 

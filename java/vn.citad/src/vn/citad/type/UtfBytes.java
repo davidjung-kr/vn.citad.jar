@@ -8,8 +8,6 @@ package vn.citad.type;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import java.io.UnsupportedEncodingException;
-import vn.citad.type.Encoding;
-import vn.citad.type.Encoding;
 
 public class UtfBytes {
 	private byte[] bytes;

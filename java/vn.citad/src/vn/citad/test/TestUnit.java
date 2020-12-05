@@ -7,7 +7,6 @@ package vn.citad.test;
  * ※ License: LGPL-v2.1 (https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
-import vn.citad.test.TestException;
 public interface TestUnit {
 	public void assertTest() throws TestException;
 }
