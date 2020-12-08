@@ -8,13 +8,17 @@ package vn.citad.gaw;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 public class Otf {
-	private Field[] fields = { new Field("REC_TYPE", 2) };
+	private Field[] fields = {
+		new Field("REC_TYPE",	2,	true),
+		new Field("TRX_TYPE",	6,	true)
+	};
 }
 
 class Field {
 	private int length;
 	private String name;
-	public Field(String name, int length) {
+	private boolean isMandatory;
+	public Field(String name, int length, boolean isMandatory) {
 		this.name = name;
 		this.length = length;
 	}
