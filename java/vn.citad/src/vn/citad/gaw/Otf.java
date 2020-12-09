@@ -1,4 +1,6 @@
 package vn.citad.gaw;
+import java.util.HashMap;
+
 /**
  * [ VIETNAM CITAD ] Otf
  * 	- Out-going
@@ -9,6 +11,25 @@ package vn.citad.gaw;
  */
 import vn.citad.type.Field;
 public class Otf {
+	private HashMap<String, Integer> headerKeys;
+	private HashMap<String, Integer> dataKeys;
+	private HashMap<String, Integer> trailerKeys;
+	
+	public Otf(){
+		this.headerKeys 	= new HashMap<String, Integer>();
+		this.dataKeys		= new HashMap<String, Integer>();
+		this.trailerKeys	= new HashMap<String, Integer>();
+		
+		for(int i=0; i<header.length; i++)
+			headerKeys.put(header[i].getName(), i);
+		
+		for(int i=0; i<data.length; i++)
+			dataKeys.put(data[i].getName(), i);
+		
+		for(int i=0; i<trailer.length; i++)
+			trailerKeys.put(trailer[i].getName(), i);
+	}
+	
 	// HH
 	private Field[] header = {
 			new Field("REC_TYPE",	2,	true),
@@ -78,4 +99,72 @@ public class Otf {
 		new Field("TR_DATE",		8,		true),
 		new Field("DATA_CNT",		8,		true)
 	};
+
+	
+	public void setHeader(String[] values) {
+		for(int i=0; i<values.length; i++) 
+			this.header[i].setValue(values[i]);
+	}
+	
+	public void setHeader(int index, String value) {
+		this.header[index].setValue(value);
+	}
+	
+	public void setHeader(String name, String value) {
+		int i  = this.headerKeys.get(name);
+		this.header[i].setValue(value);
+	}
+	
+	public void setData(String[] values) {
+		for(int i=0; i<values.length; i++) {
+			this.data[i].setValue(values[i]);
+		}
+	}
+	
+	public void setData(int index, String value) {
+		this.data[index].setValue(value);
+	}
+	
+	public void setData(String name, String value) {
+		this.data[this.dataKeys.get(name)].setValue(value);
+	}
+	
+	public void setTrailer(String[] values) {
+		for(int i=0; i<values.length; i++) {
+			this.trailer[i].setValue(values[i]);
+		}
+	}
+	
+	public void setTrailer(int index, String value) {
+		this.trailer[index].setValue(value);
+	}
+	
+	public void setTrailer(String name, String value) {
+		this.data[this.trailerKeys.get(name)].setValue(value);
+	}
+	
+	public String fetch() {
+		StringBuffer sb = new StringBuffer();
+		
+		// 헤더 통합
+		for(int i=0; i<header.length; i++) {
+			String length = String.valueOf(header[i].getLength());
+			sb.append( String.format("%"+length+"s", this.header[i].getValue()) );
+		}
+		sb.append("\n");
+		
+		for(int i=0; i<data.length; i++) {
+
+			String length = String.valueOf(data[i].getLength());
+			sb.append( String.format("%"+length+"s", this.data[i].getValue()) );
+		}
+		sb.append("\n");
+		
+		for(int i=0; i<trailer.length; i++) {
+			String length = String.valueOf(trailer[i].getLength());
+			sb.append( String.format("%"+length+"s", this.trailer[i].getValue()) );
+		}
+		
+		return sb.toString();
+	}
 }

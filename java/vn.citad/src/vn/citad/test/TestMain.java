@@ -10,6 +10,7 @@ package vn.citad.test;
 import vn.citad.Mac;
 import vn.citad.type.UtfBytes;
 import vn.citad.type.Encoding;
+import vn.citad.test.*;
 import vn.citad.util.Sha256;
 
 public class TestMain {
@@ -20,7 +21,8 @@ public class TestMain {
 		TestUnit[] unitList = {
 				new TestUtilSha256(),
 				new TestUtilBase64(),
-				new TestUtilTrimer()
+				new TestUtilTrimer(),
+				new TestGawOtf()
 		};
 		
 		// 테스트 수행
