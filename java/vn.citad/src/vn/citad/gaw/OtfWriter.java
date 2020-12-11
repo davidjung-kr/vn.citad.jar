@@ -10,12 +10,12 @@ import java.util.HashMap;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import vn.citad.type.Field;
-public class Otf {
+public class OtfWriter {
 	private HashMap<String, Integer> headerKeys;
 	private HashMap<String, Integer> dataKeys;
 	private HashMap<String, Integer> trailerKeys;
 	
-	public Otf(){
+	public OtfWriter(){
 		this.headerKeys 	= new HashMap<String, Integer>();
 		this.dataKeys		= new HashMap<String, Integer>();
 		this.trailerKeys	= new HashMap<String, Integer>();

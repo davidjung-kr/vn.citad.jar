@@ -22,7 +22,7 @@ public class TestMain {
 				new TestUtilSha256(),
 				new TestUtilBase64(),
 				new TestUtilTrimer(),
-				new TestGawOtf()
+				new TestGawOtfWriter()
 		};
 		
 		// 테스트 수행
