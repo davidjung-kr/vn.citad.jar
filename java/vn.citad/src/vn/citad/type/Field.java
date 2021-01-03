@@ -7,6 +7,7 @@ package vn.citad.type;
  * ※ License: LGPL-v2.1 (https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
+
 public class Field {
 	private int length		= 0;
 	private String name		= "";

@@ -1,8 +1,8 @@
 package vn.citad.type;
 
-public class OtfHeader {
-	private int length = 6;
-	private final String[] fieldNames = {
+public class OtfTrailer {
+	private final int length = 5;
+	private String[] fieldNames = {
 		"REC_TYPE",
 		"CI_CODE",
 		"FILE_NAME",
@@ -11,7 +11,7 @@ public class OtfHeader {
 	};
 	
 	private final int[] fieldSizes = {
-		2, 12, 25, 8, 8
+		2, 12, 25, 8, 8,
 	};
 	
 	private final boolean[] fieldMandatory = {
@@ -19,7 +19,7 @@ public class OtfHeader {
 		true,
 		true,
 		true,
-		true		
+		true
 	};
 	
 	public int getLength() {

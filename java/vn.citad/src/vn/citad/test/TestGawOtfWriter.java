@@ -16,7 +16,7 @@ public class TestGawOtfWriter implements TestUnit {
 		if(!("HH79640001GAWOTF19980101.123456199801010000001\r\n"
 				+ "\r\n"
 				+ "").equals(result)) {
-			throw new TestException("[FAIL] TestGawOtf");
+			throw new TestException("[FAIL] TestGawOtf : `"+result+"`");
 		}
 		System.out.println("[PASS] TestGawOtf");
 	}
