@@ -5,17 +5,21 @@ import vn.citad.gaw.OtfWriter;
 public class TestGawOtfWriter implements TestUnit {
 	public void assertTest() throws TestException {
 		OtfWriter ow = new OtfWriter();
+		
+		ow.setHeader(new String[]{
+			"HH",
+			"21234567",
+			"GAWOTF19980101.123456",
+			"19980101",
+			"00000001"
+		});
 
-		ow.setHeader(0, "HH");
-		ow.setHeader(1, "79640001");
-		ow.setHeader(2, "GAWOTF19980101.123456");
-		ow.setHeader(3, "19980101");
-		ow.setHeader(4, "0000001");
 		String result = ow.fetch();
+		
+		result = result.trim();
+		
 		int i = 0;
-		if(!("HH79640001GAWOTF19980101.123456199801010000001\r\n"
-				+ "\r\n"
-				+ "").equals(result)) {
+		if(!("HH21234567    GAWOTF19980101.123456    1998010100000001").equals(result)) {
 			throw new TestException("[FAIL] TestGawOtf : `"+result+"`");
 		}
 		System.out.println("[PASS] TestGawOtf");

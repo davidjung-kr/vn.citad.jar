@@ -149,7 +149,7 @@ public class OtfWriter {
 		// 헤더 통합
 		for(int i=0; i<header.length; i++) {
 			String length = String.valueOf(header[i].getLength());
-			sb.append( String.format("%"+length+"s", this.header[i].getValue()) );
+			sb.append( String.format("%-"+length+"s", this.header[i].getValue()) );
 		}
 		sb.append("\n");
 		
