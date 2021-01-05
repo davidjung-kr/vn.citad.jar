@@ -1,6 +1,4 @@
 package vn.citad.gaw;
-import java.util.HashMap;
-
 /**
  * [ VIETNAM CITAD ] Otf
  * 	- Out-going
@@ -10,7 +8,13 @@ import java.util.HashMap;
  * ※ See: https://github.com/davidjung-kr/vn.citad.jar
  */
 import vn.citad.type.Field;
+import vn.citad.type.OtfHeader;
+import vn.citad.type.OtfHeader.PADDING;
+
+import java.util.HashMap;
+
 public class OtfWriter {
+	private OtfHeader otfHeader = new OtfHeader();
 	private HashMap<String, Integer> headerKeys;
 	private HashMap<String, Integer> dataKeys;
 	private HashMap<String, Integer> trailerKeys;
@@ -20,24 +24,12 @@ public class OtfWriter {
 		this.dataKeys		= new HashMap<String, Integer>();
 		this.trailerKeys	= new HashMap<String, Integer>();
 		
-		for(int i=0; i<header.length; i++)
-			headerKeys.put(header[i].getName(), i);
-		
 		for(int i=0; i<data.length; i++)
 			dataKeys.put(data[i].getName(), i);
 		
 		for(int i=0; i<trailer.length; i++)
 			trailerKeys.put(trailer[i].getName(), i);
 	}
-	
-	// HH
-	private Field[] header = {
-			new Field("REC_TYPE",	2,	true),
-			new Field("CI_CODE",	12,	true),
-			new Field("FILE_NAME",	25,	true),
-			new Field("TR_DATE",	8,	true),
-			new Field("DATA_CNT",	8,	true)
-	};
 	
 	// DD
 	private Field[] data = {
@@ -102,17 +94,19 @@ public class OtfWriter {
 
 	
 	public void setHeader(String[] values) {
-		for(int i=0; i<values.length; i++) 
-			this.header[i].setValue(values[i]);
+		this.otfHeader.setFields(values);
 	}
 	
 	public void setHeader(int index, String value) {
-		this.header[index].setValue(value);
+		this.otfHeader.setField(index, value);
 	}
 	
-	public void setHeader(String name, String value) {
-		int i  = this.headerKeys.get(name);
-		this.header[i].setValue(value);
+	public boolean setHeader(String name, String value) {
+		int index = this.otfHeader.getFieldIndex(name);
+		if(index<0)
+			return false;
+		this.otfHeader.setField(index, value);
+		return true;
 	}
 	
 	public void setData(String[] values) {
@@ -147,9 +141,11 @@ public class OtfWriter {
 		StringBuffer sb = new StringBuffer();
 		
 		// 헤더 통합
-		for(int i=0; i<header.length; i++) {
-			String length = String.valueOf(header[i].getLength());
-			sb.append( String.format("%-"+length+"s", this.header[i].getValue()) );
+		for(int i=0; i<this.otfHeader.length; i++) {			
+			String paddingDirection	= otfHeader.fieldPadding[i]==PADDING.RIGHT? "-":"";
+			String paddingLength	= otfHeader.fieldPadding[i]==PADDING.NONE ? "":String.valueOf(otfHeader.getFieldSize(i));
+
+			sb.append( String.format("%"+paddingDirection+paddingLength+"s", this.otfHeader.getFieldValue(i) ) );
 		}
 		sb.append("\n");
 		

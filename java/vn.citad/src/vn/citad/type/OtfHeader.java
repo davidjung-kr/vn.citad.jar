@@ -1,13 +1,30 @@
 package vn.citad.type;
 
+
+
 public class OtfHeader {
-	private int length = 6;
+	public enum PADDING {
+		NONE,
+		LEFT,
+		RIGHT
+	}
+	
+	public static final int length = 5;
+	public String[] fields = new String[length];
 	private final String[] fieldNames = {
 		"REC_TYPE",
 		"CI_CODE",
 		"FILE_NAME",
 		"TR_DATE",
 		"DATA_CNT"
+	};
+	
+	public final PADDING[] fieldPadding = {
+			PADDING.NONE,
+			PADDING.LEFT,
+			PADDING.RIGHT,
+			PADDING.NONE,
+			PADDING.NONE
 	};
 	
 	private final int[] fieldSizes = {
@@ -22,8 +39,23 @@ public class OtfHeader {
 		true		
 	};
 	
-	public int getLength() {
-		return this.length;
+	public void setFields(String[] array) {
+		this.fields = array;
+	}
+	
+	public void setField(int index, String value) {
+		this.fields[index] = value;
+	}
+	
+	public int getFieldIndex(String fieldName) {
+		int result = -1;
+		for(int i=0; i<fieldNames.length; i++) {
+			if(fieldNames[i].equals(fieldName)) {
+				result = i;
+				break;
+			}
+		}
+		return result;
 	}
 	
 	public String getFieldName(int index) {
@@ -50,13 +82,11 @@ public class OtfHeader {
 	}
 	
 	public boolean isFieldMandatory(String fieldName) {
-		boolean mandatory = false;
-		for(int i=0; i<fieldNames.length; i++) {
-			if(fieldNames[i].equals(fieldName)) {
-				mandatory = fieldMandatory[i];
-				break;
-			}
-		}
-		return mandatory;
+		int index = this.getFieldIndex(fieldName);
+		return index>=0 ? fieldMandatory[index]:false; // -1일 때 무조건 false
+	}
+	
+	public String getFieldValue(int index) {
+		return this.fields[index];
 	}
 }
