@@ -9,18 +9,16 @@ package vn.citad.gaw;
  */
 import vn.citad.type.Field;
 import vn.citad.type.OtfHeader;
-import vn.citad.type.OtfHeader.PADDING;
+import vn.citad.type.Padding;
 
 import java.util.HashMap;
 
 public class OtfWriter {
 	private OtfHeader otfHeader = new OtfHeader();
-	private HashMap<String, Integer> headerKeys;
 	private HashMap<String, Integer> dataKeys;
 	private HashMap<String, Integer> trailerKeys;
 	
 	public OtfWriter(){
-		this.headerKeys 	= new HashMap<String, Integer>();
 		this.dataKeys		= new HashMap<String, Integer>();
 		this.trailerKeys	= new HashMap<String, Integer>();
 		
@@ -142,8 +140,8 @@ public class OtfWriter {
 		
 		// 헤더 통합
 		for(int i=0; i<this.otfHeader.length; i++) {			
-			String paddingDirection	= otfHeader.fieldPadding[i]==PADDING.RIGHT? "-":"";
-			String paddingLength	= otfHeader.fieldPadding[i]==PADDING.NONE ? "":String.valueOf(otfHeader.getFieldSize(i));
+			String paddingDirection	= otfHeader.fieldPadding[i]==Padding.RIGHT? "-":"";
+			String paddingLength	= otfHeader.fieldPadding[i]==Padding.NONE ? "":String.valueOf(otfHeader.getFieldSize(i));
 
 			sb.append( String.format("%"+paddingDirection+paddingLength+"s", this.otfHeader.getFieldValue(i) ) );
 		}
