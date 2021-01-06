@@ -33,7 +33,7 @@ public class TestMain {
 
 		System.out.println("----- MAC Generator -----");
 		
-		String contentMsg = "HH10302022DD201001ADD101001BTT10302022";
+		String contentMsg = "a";
 		UtfBytes u8bytes = new UtfBytes(contentMsg, Encoding.UTF8);
 		UtfBytes u16bytes = new UtfBytes(contentMsg, Encoding.UTF16);
 		
